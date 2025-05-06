@@ -1,0 +1,10 @@
+1,Neko Plush,Cute cat plush toy with soft fur and embroidered details,19.99,3,neko-plush.jpg
+2,Anime Figure,Popular anime character figure with detailed sculpting and paint,29.99,7,anime-figure.jpg
+3,Chibi Keychain,Small chibi character keychain with metal chain,5.99,12,chibi-keychain.jpg
+4,Kawaii Notebook,Cute cat-themed notebook with 100 pages,8.99,3,cat-notebook.jpg
+5,Anime Poster Set,Set of 3 high-quality anime posters,15.99,7,anime-posters.jpg
+6,Plush Backpack,Cat-shaped backpack with plush material,24.99,3,plush-backpack.jpg
+7,Figure Collection,Set of 5 mini anime figures,39.99,12,figure-set.jpg
+8,Cat Ears Headband,Adjustable cat ears headband with bow,12.99,3,cat-ears.jpg
+9,Anime T-Shirt,Cotton t-shirt with anime character print,19.99,7,anime-shirt.jpg
+10,Chibi Sticker Pack,Set of 50 cute chibi character stickers,7.99,3,chibi-stickers.jpg
