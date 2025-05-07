@@ -21,6 +21,55 @@
     <title><%= toy.getName() %> - NekoMart</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
+        body {
+            background: url('images/Frontend/wallpaperflare.com_wallpaper.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            color: #f5f5f5;
+        }
+        #sakura-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            border: 0.5px solid rgba(255,255,255,0.15);
+        }
+        .toy-details, .toy-info, .review, .review-form {
+            background-color: transparent;
+            border-radius: 16px;
+            box-shadow: none;
+            color: #f5f5f5;
+        }
+        .container th, .container td, .toy-details th, .toy-details td {
+            color: #f5f5f5;
+        }
+        .container a.btn, .toy-details a.btn {
+            color: #ffb6c1;
+            border: 2px solid #ffb6c1;
+            background: transparent;
+            font-weight: bold;
+            transition: color 0.3s, background 0.3s;
+        }
+        .container a.btn:hover, .toy-details a.btn:hover {
+            color: #fff;
+            background: #ff69b4;
+            border-color: #ff69b4;
+        }
         .toy-details {
             width: 100%;
             margin: 0;
@@ -39,7 +88,7 @@
             object-fit: contain;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            background: #181818;
+            background: transparent;
         }
         .toy-header > div {
             width: 100%;
@@ -56,7 +105,7 @@
             color: var(--primary-color);
         }
         .toy-age {
-            background-color: #333;
+            background-color: rgba(51, 51, 51, 0.5);
             padding: 0.7rem 1.2rem;
             border-radius: var(--border-radius);
             font-size: 1.2rem;
@@ -77,13 +126,13 @@
             width: 100%;
         }
         .toy-info {
-            background: #222;
+            background: transparent;
             padding: 2rem 0;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
         }
         .review-form {
-            background: #222;
+            background: transparent;
             padding: 2rem 0;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -116,6 +165,9 @@
         .review-form select {
             flex: 1;
             max-width: 300px;
+            background: transparent;
+            color: #f5f5f5;
+            border: 1px solid #ffb6c1;
         }
         .review-form textarea {
             flex: 1;
@@ -123,6 +175,9 @@
             min-height: 80px;
             max-width: 100%;
             box-sizing: border-box;
+            background: transparent;
+            color: #f5f5f5;
+            border: 1px solid #ffb6c1;
         }
         .review-form button {
             width: 100%;
@@ -131,13 +186,27 @@
             align-self: flex-start;
         }
         .review {
-            background: #222;
-            padding: 2rem 3rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            margin: 2rem 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
             position: relative;
-            width: 100%;
+        }
+        .review .delete-review {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: 1px solid #ffb6c1;
+            color: #ffb6c1;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .review .delete-review:hover {
+            background: rgba(255, 182, 193, 0.2);
+            color: #ff69b4;
         }
         .review-header {
             display: flex;
@@ -157,19 +226,6 @@
             margin-top: 1rem;
             line-height: 1.6;
             color: #f5f5f5;
-        }
-        .delete-review {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color 0.3s;
-        }
-        .delete-review:hover {
-            background-color: #c0392b;
         }
         .admin-controls {
             position: absolute;
@@ -205,6 +261,51 @@
             flex: 1;
             min-width: 0;
         }
+        .header {
+            width: 100%;
+            margin-bottom: 2rem;
+            background: none !important;
+            box-shadow: none;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            position: relative;
+            background: none !important;
+        }
+        .nav-menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-menu li {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .nav-menu li.left {
+            justify-content: flex-start;
+            padding-left: 2rem;
+        }
+        .nav-menu li.center {
+            justify-content: center;
+        }
+        .nav-menu li.right {
+            justify-content: flex-end;
+            padding-right: 2rem;
+        }
+        .nav-menu li.left a.btn {
+            margin-left: 0;
+        }
+        .nav-menu li.right a.btn {
+            margin-right: 0;
+        }
         .logo {
             font-size: 2.1rem;
             font-weight: bold;
@@ -212,39 +313,36 @@
             text-decoration: none;
             letter-spacing: 2px;
             text-shadow: 0 2px 8px #222, 0 0 2px #fff;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-        .nav-menu {
-            display: flex;
-            flex-direction: row;
-            gap: 3rem;
-            list-style: none;
-            margin: 0;
+            background: none;
+            border: none;
             padding: 0;
-            align-items: center;
-        }
-        .nav-menu li {
             margin: 0;
-            padding: 0;
+            pointer-events: none;
+            cursor: default;
+            position: static;
+            left: unset;
+            transform: none;
         }
-        .nav-menu a {
-            color: #222;
-            background: #ffb6c1;
+        .nav-menu a.btn {
+            color: #ffb6c1;
+            border: 2px solid #ffb6c1;
+            background: transparent;
+            font-weight: bold;
+            transition: color 0.3s, background 0.3s;
             text-decoration: none;
-            font-weight: 600;
             padding: 0.5rem 2rem;
             border-radius: 8px;
             font-size: 1.1rem;
-            transition: background 0.2s;
+            min-width: 120px;
+            box-sizing: border-box;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 160px;
-            box-sizing: border-box;
         }
-        .nav-menu a:hover {
+        .nav-menu a.btn:hover {
+            color: #fff;
             background: #ff69b4;
+            border-color: #ff69b4;
         }
         .nav-menu form {
             display: none;
@@ -283,14 +381,15 @@
     </style>
 </head>
 <body>
+    <canvas id="sakura-canvas"></canvas>
     <div class="container fade-in">
         <header class="header">
             <div class="header-content">
-                <a href="index.jsp" class="logo">NekoMart</a>
-                <nav>
+                <nav style="width:100%;">
                     <ul class="nav-menu">
-                        <li><a href="toys.jsp" class="btn btn-secondary">Toys</a></li>
-                        <li><a href="cart.jsp" class="btn btn-secondary">Cart</a></li>
+                        <li class="left"><a href="toys.jsp" class="btn btn-secondary">Toys</a></li>
+                        <li class="center"><span class="logo">NekoMart</span></li>
+                        <li class="right"><a href="cart.jsp" class="btn btn-secondary">Cart</a></li>
                     </ul>
                 </nav>
             </div>
@@ -308,6 +407,14 @@
                     <div>
                         <h1><%= toy.getName() %></h1>
                         <div class="toy-description"><%= toy.getDescription() %></div>
+                        <% if ("admin".equals(user.getRole())) { %>
+                            <form action="toy" method="post" style="margin-top:1rem;">
+                                <input type="hidden" name="action" value="updateDescription">
+                                <input type="hidden" name="id" value="<%= toy.getId() %>">
+                                <textarea name="description" rows="3" style="width:100%; background: rgba(255, 255, 255, 0.2); color: #f5f5f5;"><%= toy.getDescription() %></textarea>
+                                <button class="btn btn-secondary" type="submit" style="margin-top:0.5rem;">Update Description</button>
+                            </form>
+                        <% } %>
                         <div class="toy-price">$<%= toy.getPrice() %></div>
                         <div class="toy-age">Age: <%= toy.getAgeGroup() %>+</div>
                         <div class="rating">
@@ -386,5 +493,12 @@
             </div>
         </div>
     </div>
+    <script src="js/sakura.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            const canvas = document.getElementById('sakura-canvas');
+            new Sakura(canvas);
+        });
+    </script>
 </body>
 </html> 

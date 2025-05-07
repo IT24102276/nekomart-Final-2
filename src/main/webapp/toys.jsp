@@ -6,7 +6,6 @@
     ToyLinkedList toys = com.nekomart.util.FileUtil.readToys();
     String selectedAge = request.getParameter("ageGroup");
     if (selectedAge != null && !selectedAge.isEmpty()) {
-        toys.sortByAgeGroup();
         // Filter toys by selected age group
         List<Toy> filteredToys = new ArrayList<>();
         for (Toy t : toys.getAll()) {
@@ -14,10 +13,12 @@
                 filteredToys.add(t);
             }
         }
-        toys = new ToyLinkedList();
+        // Create a new ToyLinkedList with only the filtered toys
+        ToyLinkedList filteredToyList = new ToyLinkedList();
         for (Toy t : filteredToys) {
-            toys.add(t);
+            filteredToyList.add(t);
         }
+        toys = filteredToyList;
     }
 %>
 <html>
@@ -25,22 +26,91 @@
     <title>Toys - NekoMart</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
+        body {
+            background: url('images/Frontend/wallpaperflare.com_wallpaper.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .container.fade-in {
+            background-color: rgba(34, 34, 34, 0.55);
+            border: none;
+            box-shadow: none;
+            width: 100%;
+            max-width: 1200px;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 16px;
+        }
+        .header {
+            background: transparent;
+            box-shadow: none;
+            margin-bottom: 2rem;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+        .header-left {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .header-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .header-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffb6c1;
+            text-shadow: 2px 2px 8px #222, 0 0 2px #fff;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            text-align: center;
+        }
+        .toy-card {
+            background: rgba(34,34,34,0.80);
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 1rem;
+            transition: transform 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .filters {
+            background: rgba(34,34,34,0.55);
+            color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .admin-section {
+            background: rgba(34,34,34,0.80);
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
         .toy-image {
             width: 100%;
             height: 200px;
             object-fit: cover;
             border-radius: var(--border-radius);
             transition: transform 0.3s;
-        }
-        .toy-card {
-            background: #222;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 1rem;
-            transition: transform 0.3s;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
         }
         .toy-card:hover {
             transform: translateY(-5px);
@@ -88,26 +158,6 @@
             margin: 0.5rem 0;
             color: #f5f5f5;
         }
-        .filters {
-            background: #222;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            margin-bottom: 2rem;
-        }
-        .filters form {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .admin-section {
-            background: #222;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            margin-top: 2rem;
-        }
         .admin-section h3 {
             color: var(--primary-color);
             margin-bottom: 1rem;
@@ -121,16 +171,6 @@
             display: flex;
             gap: 0.5rem;
             margin-top: 1rem;
-        }
-        .logo {
-            font-size: 2.1rem;
-            font-weight: bold;
-            color: #ffb6c1;
-            text-decoration: none;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 8px #222, 0 0 2px #fff;
-            margin-bottom: 1.5rem;
-            display: inline-block;
         }
         .nav-menu {
             display: flex;
@@ -228,35 +268,43 @@
     <div class="container fade-in">
         <header class="header">
             <div class="header-content">
-                <a href="index.jsp" class="logo">NekoMart</a>
-                <nav>
-                    <ul class="nav-menu">
-                        <li><a href="toys.jsp" class="btn btn-secondary">Toys</a></li>
-                        <li><a href="cart.jsp" class="btn btn-secondary">Cart</a></li>
-                    </ul>
-                </nav>
+                <div class="header-left">
+                    <nav>
+                        <ul class="nav-menu">
+                            <li><a href="toys.jsp" class="btn btn-secondary">Toys</a></li>
+                            <li><a href="cart.jsp" class="btn btn-secondary">Cart</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="header-center">
+                    <a href="index.jsp" class="logo">NekoMart</a>
+                </div>
+                <div class="header-right">
+                    <form action="user" method="post" style="margin-left:auto;">
+                        <input type="hidden" name="action" value="logout">
+                        <button type="submit" class="btn btn-secondary" style="min-width:100px;">Logout</button>
+                    </form>
+                </div>
             </div>
         </header>
 
-        <div class="filters">
-            <form action="toys.jsp" method="get">
-                <div class="form-group">
-                    <label for="ageGroup">Filter by Age Group:</label>
-                    <select name="ageGroup" id="ageGroup" class="form-control">
-                        <option value="">All Ages</option>
-                        <option value="3" <%= "3".equals(selectedAge) ? "selected" : "" %>>3+</option>
-                        <option value="7" <%= "7".equals(selectedAge) ? "selected" : "" %>>7+</option>
-                        <option value="12" <%= "12".equals(selectedAge) ? "selected" : "" %>>12+</option>
-                    </select>
-                </div>
-                <button class="btn btn-secondary" type="submit">Filter</button>
-            </form>
+        <form action="toys.jsp" method="get">
+            <div class="form-group">
+                <label for="ageGroup" style="color: #ffb6c1; font-weight: bold;">Filter by Age Group:</label>
+                <select name="ageGroup" id="ageGroup" class="form-control">
+                    <option value="">All Ages</option>
+                    <option value="3" <%= "3".equals(selectedAge) ? "selected" : "" %>>3+</option>
+                    <option value="7" <%= "7".equals(selectedAge) ? "selected" : "" %>>7+</option>
+                    <option value="12" <%= "12".equals(selectedAge) ? "selected" : "" %>>12+</option>
+                </select>
+            </div>
+            <button class="btn btn-secondary" type="submit">Filter</button>
+        </form>
 
-            <form action="toy" method="post" style="margin-top: 1rem;">
-                <input type="hidden" name="action" value="sort">
-                <button class="btn btn-secondary" type="submit">Sort by Age Group</button>
-            </form>
-        </div>
+        <form action="toy" method="post" style="margin-top: 1rem;">
+            <input type="hidden" name="action" value="sort">
+            <button class="btn btn-secondary" type="submit">Sort by Age Group</button>
+        </form>
 
         <div class="toy-grid">
             <% for (Toy t : toys.getAll()) {
@@ -319,12 +367,6 @@
             </form>
         </div>
         <% } %>
-    </div>
-    <div class="bottom-buttons">
-        <form action="user" method="post">
-            <input type="hidden" name="action" value="logout">
-            <button type="submit" class="btn btn-secondary">Logout</button>
-        </form>
     </div>
 </body>
 </html>
