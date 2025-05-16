@@ -5,8 +5,8 @@ public class Toy {
     private String name;
     private String description;
     private double price;
-    private int ageGroup; // e.g., 3, 7, 12
-    private String image; // Store image filename
+    private int ageGroup;
+    private String image; // stores toy images
 
     public Toy(int id, String name, String description, double price, int ageGroup, String image) {
         this.id = id;

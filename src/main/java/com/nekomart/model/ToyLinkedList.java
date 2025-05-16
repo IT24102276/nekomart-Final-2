@@ -1,41 +1,90 @@
 package com.nekomart.model;
 
-import java.util.LinkedList;
-import java.util.List;
 public class ToyLinkedList {
-    private LinkedList<Toy> toys = new LinkedList<>();
+    private Node head;
+    private int size;
 
-    public void add(Toy toy) { toys.add(toy); }
-    public void remove(int id) {
-        toys.removeIf(t -> t.getId() == id);
+    public ToyLinkedList() {
+        head = null;
+        size = 0;
     }
+
+    public Node getHead() {
+        return head;
+    }
+
+    public void add(Toy toy) {
+        Node newNode = new Node(toy);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+        size++;
+    }
+
+    public void remove(int id) {
+        if (head == null) return;
+        
+        if (head.data.getId() == id) {
+            head = head.next;
+            size--;
+            return;
+        }
+        
+        Node current = head;
+        while (current.next != null) {
+            if (current.next.data.getId() == id) {
+                current.next = current.next.next;
+                size--;
+                return;
+            }
+            current = current.next;
+        }
+    }
+
     public Toy get(int id) {
-        for (Toy t : toys) if (t.getId() == id) return t;
+        Node current = head;
+        while (current != null) {
+            if (current.data.getId() == id) {
+                return current.data;
+            }
+            current = current.next;
+        }
         return null;
     }
-    public List<Toy> getAll() { return toys; }
+
+    public Toy[] getAll() {
+        Toy[] toyArray = new Toy[size];
+        Node current = head;
+        int index = 0;
+        while (current != null) {
+            toyArray[index++] = current.data;
+            current = current.next;
+        }
+        return toyArray;
+    }
+
     public void update(Toy toy) {
-        for (int i = 0; i < toys.size(); i++) {
-            if (toys.get(i).getId() == toy.getId()) {
-                toys.set(i, toy);
-                break;
+        Node current = head;
+        while (current != null) {
+            if (current.data.getId() == toy.getId()) {
+                current.data = toy;
+                return;
             }
+            current = current.next;
         }
     }
-    // Selection Sort by ageGroup
+
     public void sortByAgeGroup() {
-        for (int i = 0; i < toys.size() - 1; i++) {
-            int minIdx = i;
-            for (int j = i + 1; j < toys.size(); j++) {
-                if (toys.get(j).getAgeGroup() < toys.get(minIdx).getAgeGroup()) {
-                    minIdx = j;
-                }
-            }
-            if (minIdx != i) {
-                Toy temp = toys.get(i);
-                toys.set(i, toys.get(minIdx));
-                toys.set(minIdx, temp);
-            }
-        }
+        SelectionSort.sortByAgeGroup(this);
+    }
+
+    public int size() {
+        return size;
     }
 }

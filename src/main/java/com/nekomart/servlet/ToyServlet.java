@@ -9,13 +9,13 @@ import jakarta.servlet.annotation.*;
 import java.io.*;
 import java.util.UUID;
 
-@MultipartConfig
+@MultipartConfig // handles file uploads(images)
 public class ToyServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        ToyLinkedList toys = FileUtil.readToys();
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { // handles all POST requests (like form submissions)
+        String action = req.getParameter("action"); //gets what the user wanna do(add,delete,sort or update)
+        ToyLinkedList toys = FileUtil.readToys(); //load all existing toys from files into ToyLinkedList
 
-        if ("add".equals(action)) {
+        if ("add".equals(action)) { //if admin click add...gets toy details form
             int id = (int) (System.currentTimeMillis() % 100000);
             String name = req.getParameter("name");
             String desc = req.getParameter("description");
