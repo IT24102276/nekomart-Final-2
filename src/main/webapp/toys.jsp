@@ -7,16 +7,11 @@
     String selectedAge = request.getParameter("ageGroup");
     if (selectedAge != null && !selectedAge.isEmpty()) {
         // Filter toys by selected age group
-        List<Toy> filteredToys = new ArrayList<>();
+        ToyLinkedList filteredToyList = new ToyLinkedList();
         for (Toy t : toys.getAll()) {
             if (t.getAgeGroup() == Integer.parseInt(selectedAge)) {
-                filteredToys.add(t);
+                filteredToyList.add(t);
             }
-        }
-        // Create a new ToyLinkedList with only the filtered toys
-        ToyLinkedList filteredToyList = new ToyLinkedList();
-        for (Toy t : filteredToys) {
-            filteredToyList.add(t);
         }
         toys = filteredToyList;
     }
