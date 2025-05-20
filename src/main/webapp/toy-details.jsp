@@ -381,7 +381,6 @@
     </style>
 </head>
 <body>
-    <canvas id="sakura-canvas"></canvas>
     <div class="container fade-in">
         <header class="header">
             <div class="header-content">
@@ -493,12 +492,5 @@
             </div>
         </div>
     </div>
-    <script src="js/sakura.js"></script>
-    <script>
-        window.addEventListener('load', () => {
-            const canvas = document.getElementById('sakura-canvas');
-            new Sakura(canvas);
-        });
-    </script>
 </body>
 </html> 

@@ -8,6 +8,26 @@ import java.io.*;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
+/**
+ * FileUtil - File Management Helper
+ * 
+ * This is like a toy store's filing cabinet helper who keeps track of all important information!
+ * 
+ * OOP Concepts (in simple terms):
+ * 1. Utility Class: This is like a special helper that everyone can use, just like a store's filing system
+ * 2. Static Methods: These are like pre-written instructions that anyone can follow, like a filing system manual
+ * 3. Single Responsibility: This helper only handles files, just like a filing clerk only handles paperwork
+ * 
+ * What this helper does:
+ * 1. User Files: Keeps track of all store members (like a membership card file)
+ * 2. Toy Files: Keeps track of all toys in the store (like a toy inventory list)
+ * 3. Review Files: Keeps track of what people think about toys (like a review notebook)
+ * 
+ * Think of this as a very organized filing system that:
+ * - Reads information (like opening a file drawer)
+ * - Writes information (like putting new papers in the drawer)
+ * - Keeps everything neat and organized (like a well-maintained filing system)
+ */
 public class FileUtil {
     private static final String USER_FILE = "users.txt";
     private static final String TOY_FILE = "toys.txt";

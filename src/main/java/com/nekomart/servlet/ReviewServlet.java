@@ -10,6 +10,22 @@ import java.io.IOException;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
+/**
+ * ReviewServlet - Review Management Component
+ * 
+ * This is like a friendly toy store helper who collects and manages what people think about toys!
+ * 
+ * OOP Concepts (in simple terms):
+ * 1. Encapsulation: We keep all review-related tasks in one place, like having a special review box
+ * 2. Single Responsibility: This helper only handles toy reviews, just like a real review collector
+ * 3. Inheritance: This helper is a special type of web helper (extends HttpServlet)
+ * 
+ * CRUD Operations (what this helper can do):
+ * CREATE: Add new reviews (like putting new toy reviews in the review box)
+ * READ: Look at reviews (like reading what people think about toys)
+ * UPDATE: Change reviews (like fixing a typo in a review)
+ * DELETE: Remove reviews (like taking down inappropriate reviews)
+ */
 public class ReviewServlet extends HttpServlet {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -23,6 +39,7 @@ public class ReviewServlet extends HttpServlet {
             return;
         }
 
+        // CREATE: Add new review
         if ("add".equals(action)) {
             int toyId = Integer.parseInt(req.getParameter("toyId"));
             int rating = Integer.parseInt(req.getParameter("rating"));
@@ -34,7 +51,9 @@ public class ReviewServlet extends HttpServlet {
             
             reviews.add(new Review(newId, toyId, user.getUsername(), rating, comment, date));
             FileUtil.writeReviews(reviews);
-        } else if ("delete".equals(action)) {
+        } 
+        // DELETE: Remove review
+        else if ("delete".equals(action)) {
             int reviewId = Integer.parseInt(req.getParameter("id"));
             List<Review> reviews = FileUtil.readReviews();
             reviews.removeIf(r -> r.getId() == reviewId && 

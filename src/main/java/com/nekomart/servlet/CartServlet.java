@@ -8,7 +8,22 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.*;
 
-
+/**
+ * CartServlet - Cart Management Component
+ * 
+ * This is like a shopping cart helper at the toy store who helps you with your toy shopping!
+ * 
+ * OOP Concepts (in simple terms):
+ * 1. Encapsulation: We keep all shopping cart tasks in one place, like having a special cart area
+ * 2. Single Responsibility: This helper only handles shopping carts, just like a real cart attendant
+ * 3. Inheritance: This helper is a special type of web helper (extends HttpServlet)
+ * 
+ * CRUD Operations (what this helper can do):
+ * CREATE: Put toys in your cart (like picking up toys to buy)
+ * READ: Look at what's in your cart (like checking your shopping cart)
+ * UPDATE: Change how many toys you want (like adding more of the same toy)
+ * DELETE: Take toys out of your cart (like putting toys back on the shelf)
+ */
 public class CartServlet extends HttpServlet{
     @SuppressWarnings("unchecked")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -19,6 +34,7 @@ public class CartServlet extends HttpServlet{
 
         ToyLinkedList toys = FileUtil.readToys();
 
+        // CREATE: Add item to cart
         if ("add".equals(action)) {
             int id = Integer.parseInt(req.getParameter("id"));
             Toy toy = toys.get(id);
@@ -33,12 +49,16 @@ public class CartServlet extends HttpServlet{
             if (!found) cart.add(new CartItem(toy, 1));
             session.setAttribute("cart", cart);
             resp.sendRedirect("cart.jsp");
-        } else if ("remove".equals(action)) {
+        } 
+        // DELETE: Remove item from cart
+        else if ("remove".equals(action)) {
             int id = Integer.parseInt(req.getParameter("id"));
             cart.removeIf(item -> item.getToy().getId() == id);
             session.setAttribute("cart", cart);
             resp.sendRedirect("cart.jsp");
-        } else if ("update".equals(action)) {
+        } 
+        // UPDATE: Update item quantity
+        else if ("update".equals(action)) {
             int id = Integer.parseInt(req.getParameter("id"));
             int qty = Integer.parseInt(req.getParameter("quantity"));
             for (CartItem item : cart) {
