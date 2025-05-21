@@ -5,11 +5,15 @@ package com.nekomart.model;
  * OOP Concepts demonstrated:
  * 1. Encapsulation: Private fields with public getters/setters
  * 2. Data Abstraction: Review properties are abstracted into a class
+ * 
+ * Relationships:
+ * - Association: Review is associated with Toy (through toyId)
+ * - Association: Review is associated with User (through username)
  */
 public class Review {
     private int id;
-    private int toyId;
-    private String username;
+    private int toyId; //Review has a toyId reference; no actual object or ownership - Association
+    private String username; //Review has a username string, referencing a user - Association
     private int rating;
     private String comment;
     private String date;

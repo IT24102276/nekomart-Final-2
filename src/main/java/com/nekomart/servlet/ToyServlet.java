@@ -3,11 +3,11 @@ import com.nekomart.model.Toy;
 import com.nekomart.model.ToyLinkedList;
 import com.nekomart.util.FileUtil;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
+import jakarta.servlet.*;// Basic servlet features (request, response, filter, context)
+import jakarta.servlet.http.*;// Extra features for HTTP (sessions, cookies, HttpServlet)
 import jakarta.servlet.annotation.*;
-import java.io.*;
-import java.util.UUID;
+import java.io.*;// For reading/writing files or data (e.g., PrintWriter, FileReader)
+import java.util.UUID;// For generating unique IDs
 
 /**
  * ToyServlet - Toy Management Component
@@ -18,6 +18,13 @@ import java.util.UUID;
  * 1. Encapsulation: We keep all toy-related tasks in one place, like keeping all toys in a toy box
  * 2. Single Responsibility: This manager only handles toys, just like a toy store manager only manages toys
  * 3. Inheritance: This manager is a special type of web manager (extends HttpServlet)
+ * 
+ * Relationships:
+ * - Inheritance: Extends HttpServlet
+ * - Dependency: Uses Toy model
+ * - Dependency: Uses ToyLinkedList model
+ * - Dependency: Uses FileUtil utility class
+ * - Association: Manages Toy objects through ToyLinkedList
  * 
  * CRUD Operations (what this manager can do):
  * CREATE: Add new toys to the store (like putting new toys on the shelf)

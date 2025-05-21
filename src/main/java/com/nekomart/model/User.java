@@ -1,8 +1,7 @@
 package com.nekomart.model;
 
 public class User {
-    // Private fields for encapsulation
-    private String username;
+        private String username;
     private String password;
     private String role; // "user" or "admin"
 

@@ -4,9 +4,9 @@ import com.nekomart.model.Toy;
 import com.nekomart.model.ToyLinkedList;
 import com.nekomart.model.Review;
 
-import java.io.*;
-import java.util.*;
-import java.text.SimpleDateFormat;
+import java.io.*;// For reading/writing files or data (e.g., PrintWriter, FileReader)
+import java.util.*;// Includes List, ArrayList, HashMap, etc.
+import java.text.SimpleDateFormat;// Lets you convert date/time into a readable string
 
 /**
  * FileUtil - File Management Helper
@@ -17,6 +17,13 @@ import java.text.SimpleDateFormat;
  * 1. Utility Class: This is like a special helper that everyone can use, just like a store's filing system
  * 2. Static Methods: These are like pre-written instructions that anyone can follow, like a filing system manual
  * 3. Single Responsibility: This helper only handles files, just like a filing clerk only handles paperwork
+ * 
+ * Relationships:
+ * - Dependency: Uses User model
+ * - Dependency: Uses Toy model
+ * - Dependency: Uses ToyLinkedList model
+ * - Dependency: Uses Review model
+ * - Association: Manages persistence of User, Toy, and Review objects
  * 
  * What this helper does:
  * 1. User Files: Keeps track of all store members (like a membership card file)
@@ -46,7 +53,7 @@ public class FileUtil {
         }
     }
 
-    // User CRUD
+    // User/Admin CRUD
     public static List<User> readUsers() {
         List<User> users = new ArrayList<>();
         ensureDataDirExists();

@@ -6,6 +6,10 @@ package com.nekomart.model;
  * 1. Encapsulation: Private fields with controlled access
  * 2. Data Abstraction: Hiding implementation details of linked list
  * 3. Inner Class: Node class is encapsulated within ToyLinkedList
+ * 
+ * Relationships:
+ * - Composition: ToyLinkedList has-a Node (strong ownership, Node cannot exist without ToyLinkedList)
+ * - Aggregation: ToyLinkedList contains Toy objects (weak ownership, Toy can exist independently)
  */
 public class ToyLinkedList {
     private Node head;
@@ -19,7 +23,7 @@ public class ToyLinkedList {
      * CREATE operation
      * Adds a new toy to the end of the linked list
      */
-    public void add(Toy toy) {
+    public void add(Toy toy) { //ToyLinkedList uses Toy objects but doesn’t own them.Toy can exist independently
         Node newNode = new Node(toy);
         if (head == null) {
             head = newNode;
@@ -145,9 +149,9 @@ public class ToyLinkedList {
      * 1. Encapsulation: Private fields for data and next node
      * 2. Composition: Node is composed of Toy data
      */
-    public static class Node {
-        Toy data;    // Composition: Node contains Toy object
-        Node next;   // Self-referential: Node points to another Node
+    public static class Node { //Node is an inner class that cannot exist without ToyLinkedList - composition
+        Toy data; //Node is composed of a Toy; without Node, the relationship ends.
+        Node next;
 
         Node(Toy data) {
             this.data = data;

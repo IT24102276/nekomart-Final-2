@@ -3,12 +3,11 @@ import com.nekomart.model.Review;
 import com.nekomart.model.User;
 import com.nekomart.util.FileUtil;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
-import java.io.IOException;
-import java.util.*;
-import java.text.SimpleDateFormat;
+import jakarta.servlet.*;// Basic servlet features (request, response, filter, context)
+import jakarta.servlet.http.*;// Extra features for HTTP (sessions, cookies, HttpServlet)
+import java.io.IOException;// Used when input/output operations might fail
+import java.util.*;// Includes List, ArrayList, HashMap, etc.
+import java.text.SimpleDateFormat;// Lets you convert date/time into a readable string
 
 /**
  * ReviewServlet - Review Management Component
@@ -19,6 +18,14 @@ import java.text.SimpleDateFormat;
  * 1. Encapsulation: We keep all review-related tasks in one place, like having a special review box
  * 2. Single Responsibility: This helper only handles toy reviews, just like a real review collector
  * 3. Inheritance: This helper is a special type of web helper (extends HttpServlet)
+ * 
+ * Relationships:
+ * - Inheritance: Extends HttpServlet
+ * - Dependency: Uses Review model
+ * - Dependency: Uses User model
+ * - Dependency: Uses FileUtil utility class
+ * - Association: Manages Review objects
+ * - Association: Interacts with User objects through session
  * 
  * CRUD Operations (what this helper can do):
  * CREATE: Add new reviews (like putting new toy reviews in the review box)

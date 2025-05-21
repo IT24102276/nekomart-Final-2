@@ -4,11 +4,14 @@ package com.nekomart.model;
  * CartItem class - Cart Management Component
  * OOP Concepts:
  * 1. Encapsulation: Private fields with public getters/setters
- * 2. Data Abstraction: Review properties are abstracted into a class
+ * 2. Data Abstraction: Cart item properties are abstracted into a class
+ * 
+ * Relationships:
+ * - Composition: CartItem has-a Toy (Toy cannot exist without CartItem)
  */
 
 public class CartItem {
-    private Toy toy;
+    private Toy toy; //CartItem is meaningless without the associated Toy - composition
     private int quantity;
 
     /**

@@ -2,11 +2,10 @@ package com.nekomart.servlet;
 import com.nekomart.model.User;
 import com.nekomart.util.FileUtil;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
-import java.io.IOException;
-import java.util.List;
+import jakarta.servlet.*;// Basic servlet features (request, response, filter, context)
+import jakarta.servlet.http.*;// Extra features for HTTP (sessions, cookies, HttpServlet)
+import java.io.IOException;// Used when input/output operations might fail
+import java.util.List;// Specifically importing the List interface
 
 /**
  * UserServlet - User Management Component
@@ -17,6 +16,13 @@ import java.util.List;
  * 1. Encapsulation: We keep all user-related tasks in one place, like having a special desk for signing in
  * 2. Single Responsibility: This receptionist only handles user sign-ins, just like a real receptionist
  * 3. Inheritance: This receptionist is a special type of web helper (extends HttpServlet)
+ * 
+ * Relationships:
+ * - Inheritance: Extends HttpServlet
+ * - Dependency: Uses User model
+ * - Dependency: Uses FileUtil utility class
+ * - Association: Manages User objects
+ * - Association: Interacts with User objects through session
  * 
  * CRUD Operations (what this receptionist can do):
  * CREATE: Help new people sign up (like getting a new store membership card)

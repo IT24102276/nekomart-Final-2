@@ -4,12 +4,10 @@ package com.nekomart.model;
  * Toy - Toy Information
 
  * OOP Concepts:
- * 1. Encapsulation: We keep all toy information together, like having all details on one toy card
+ * 1. Encapsulation: private attributes with public getters/setters
  * 2. Data Abstraction: We only show what's needed, like a toy card only showing important details
- * 3. Information Hiding: We keep some information private, like how a toy card keeps its details organized
  */
 public class Toy {
-    // Private fields for encapsulation
     private int id;
     private String name;
     private String description;

@@ -1,4 +1,4 @@
-admin,admin,admin
+sathmi,sathmi,admin
 imesh,imesh,admin
-lasadi,lasadi,user
-user,user,user
+monali,monali,admin
+

@@ -2,22 +2,28 @@ package com.nekomart.servlet;
 import com.nekomart.model.*;
 import com.nekomart.util.FileUtil;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
-import java.io.IOException;
-import java.util.*;
+import jakarta.servlet.*; // Basic servlet features (request, response, filter, context)
+import jakarta.servlet.http.*;// Extra features for HTTP (sessions, cookies, HttpServlet)
+import java.io.IOException;// Used when input/output operations might fail
+import java.util.*;// Includes List, ArrayList, HashMap, etc.
 
 /**
  * CartServlet - Cart Management Component
  * 
  * This is like a shopping cart helper at the toy store who helps you with your toy shopping!
  * 
- * OOP Concepts (in simple terms):
+ * OOP Concepts:
  * 1. Encapsulation: We keep all shopping cart tasks in one place, like having a special cart area
- * 2. Single Responsibility: This helper only handles shopping carts, just like a real cart attendant
- * 3. Inheritance: This helper is a special type of web helper (extends HttpServlet)
+ * 2. Inheritance: This helper is a special type of web helper (extends HttpServlet)
  * 
+ * Relationships:
+ * - Inheritance: Extends HttpServlet
+ * - Dependency: Uses CartItem model
+ * - Dependency: Uses Toy model
+ * - Dependency: Uses FileUtil utility class
+ * - Association: Manages CartItem objects through session
+ * - Association: Interacts with Toy objects through CartItem
+ *
  * CRUD Operations (what this helper can do):
  * CREATE: Put toys in your cart (like picking up toys to buy)
  * READ: Look at what's in your cart (like checking your shopping cart)
